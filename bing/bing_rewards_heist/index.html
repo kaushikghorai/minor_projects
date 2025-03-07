@@ -4,7 +4,7 @@
     <style>
         body{
             background-color: #000000;
-            color: #ffffff;
+            color: #00ffff;
         }
     </style>
     <meta charset="UTF-8">
@@ -12,12 +12,12 @@
     <title>Bing Rewards Hist --By Kaushik Ghorai</title>
     <script>
         function searchNewWords() {
-            const words = ["apple", "banana", "cherry", "date", "elderberry", "Shopping", "Man's Wear", "Shirt", "T-shirt", "Shoes", "shocks", "Jacket", "Swater", "Nikie", "Adidas", "Parker Pen", "Octane Ball Pen", "Expresso Machine", "Cofee", "Juice Maker", "Laptop", "Mobile", "Tablet", "Desktop", "Printer", "Scanner", "Camera", "Headphone", "Speaker", "Monitor", "Keyboard", "Mouse", "Router", "Modem", "Switch", "Hub", "Firewall", "Antivirus", "Operating System", "Software", "Hardware", "Network", "Internet", "Intranet", "Extranet", "LAN", "WAN"];
+            const words = ["Shopping", "Man's Wear", "Shirt", "T-shirt", "Shoes", "Socks", "Jacket", "Sweater", "Nike", "Adidas", "Parker Pen", "Octane Ball Pen", "Espresso Machine", "Coffee", "Juice Maker", "Laptop", "Mobile", "Tablet", "Desktop", "Printer", "Scanner", "Camera", "Headphone", "Speaker", "Monitor", "Keyboard", "Mouse", "Router", "Modem", "Switch", "Hub", "Firewall", "Antivirus", "Software", "Hardware"];
             words.forEach((word, index) => {
                 setTimeout(() => {
                     const searchUrl = `https://www.bing.com/search?pglt=929&q=${word}&cvid=9a17966f43ef4e279da8c1396e1f9d37&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgYICBAAGEDSAQgzODg3ajBqMagCCLACAQ&FORM=ANNTA1&PC=U531`;
                     window.open(searchUrl, '_blank');
-                }, index * 9000); // Changed interval to 5000ms (5 seconds)
+                }, index * 15000);
             });
         }
 
@@ -27,7 +27,7 @@
     </script>
 </head>
 <body>
-    <h1>Search New Words in New Tab</h1>
-    <p>This page will open new tabs and search for each word after 5 seconds.</p>
+    <h1>Welcom to bing rewards heist</h1>
+    <p>This page will open new tabs and search for each word after few seconds.</p>
 </body>
 </html>
