@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        background: #0f2027;
+        background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+      }
+      .animated-bg {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .search-bar {
+        display: flex;
+        align-items: center;
+        background: rgba(30,40,60,0.8);
+        border-radius: 30px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 32px #00ffe7a0;
+        margin-bottom: 30px;
+      }
+      .search-bar select {
+        margin: 0 8px;
+        font-size: 1.1em;
+        border: none;
+        outline: none;
+        background: #1e283c;
+        color: #00ffe7;
+        border-radius: 18px;
+        padding: 6px 16px;
+        box-shadow: 0 2px 8px #00ffe740;
+        transition: background 0.2s, color 0.2s;
+      }
+      .search-bar select:focus {
+        background: #22304a;
+        color: #fff;
+      }
+      .search-bar option {
+        color: #222;
+        background: #e0f7fa;
+        font-weight: 500;
+        padding: 8px;
+      }
+      .search-bar input {
+        width: 280px;
+        background: #182233;
+        border: 1.5px solid #00ffe7;
+        border-radius: 18px;
+        color: #fff;
+        padding: 8px 14px;
+        margin: 0 8px;
+        font-size: 1.1em;
+        transition: border 0.2s, background 0.2s;
+        box-shadow: 0 2px 8px #00ffe740;
+      }
+      .search-bar input:focus {
+        border: 1.5px solid #00bfae;
+        background: #22304a;
+        outline: none;
+      }
+      .search-bar button {
+        background: #00ffe7;
+        color: #222;
+        border-radius: 20px;
+        padding: 6px 18px;
+        cursor: pointer;
+        transition: background 0.2s;
+        border: none;
+        font-size: 1.1em;
+      }
+      .search-bar button:hover {
+        background: #00bfae;
+      }
+      .shortcuts {
+        display: flex;
+        gap: 30px;
+        margin-top: 20px;
+      }
+      .shortcut {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.1em;
+        transition: transform 0.2s;
+      }
+      .shortcut:hover {
+        transform: scale(1.1);
+        color: #00ffe7;
+      }
+      .shortcut-icon {
+        font-size: 2em;
+        margin-bottom: 6px;
+        filter: drop-shadow(0 0 8px #00ffe7a0);
+      }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  </head>
+  <body>
+    <canvas class="animated-bg"></canvas>
+    <div class="container">
+      <form class="search-bar" id="searchForm" target="_blank">
+        <select id="engine">
+          <option value="google"><i class="fab fa-google"></i> Google</option>
+          <option value="bing"><i class="fab fa-microsoft"></i> Bing</option>
+          <option value="duckduckgo" selected><i class="fab fa-duckduckgo"></i> DuckDuckGo</option>
+          <option value="yahoo"><i class="fab fa-yahoo"></i> Yahoo</option>
+          <option value="youtube"><i class="fab fa-youtube"></i> YouTube</option>
+        </select>
+        <input type="text" id="query" placeholder="Type your search here..." required autocomplete="off" />
+        <button type="submit" title="Search"><i class="fas fa-search"></i></button>
+      </form>
+      <div class="shortcuts">
+        <a class="shortcut" href="https://classroom.google.com/" target="_blank">
+          <span class="shortcut-icon"><i class="fas fa-chalkboard-teacher"></i></span>
+          Classroom
+        </a>
+        <a class="shortcut" href="https://mail.google.com/" target="_blank">
+          <span class="shortcut-icon"><i class="fas fa-envelope"></i></span>
+          Gmail
+        </a>
+        <a class="shortcut" href="https://drive.google.com/" target="_blank">
+          <span class="shortcut-icon"><i class="fas fa-hdd"></i></span>
+          Drive
+        </a>
+        <a class="shortcut" href="https://calendar.google.com/" target="_blank">
+          <span class="shortcut-icon"><i class="fas fa-calendar-alt"></i></span>
+          Calendar
+        </a>
+      </div>
+    </div>
+    <script>
+      // Sci-fi animated background (moving neon lines)
+      const canvas = document.querySelector('.animated-bg');
+      const ctx = canvas.getContext('2d');
+      let w, h;
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      const lines = Array.from({length: 30}, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        len: 100 + Math.random() * 200,
+        speed: 1 + Math.random() * 2,
+        angle: Math.random() * Math.PI * 2,
+        width: 1 + Math.random() * 2,
+        color: `hsl(${170 + Math.random()*60}, 100%, 60%)`
+      }));
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (const l of lines) {
+          ctx.save();
+          ctx.strokeStyle = l.color;
+          ctx.shadowColor = l.color;
+          ctx.shadowBlur = 16;
+          ctx.lineWidth = l.width;
+          ctx.beginPath();
+          ctx.moveTo(l.x, l.y);
+          ctx.lineTo(
+            l.x + Math.cos(l.angle) * l.len,
+            l.y + Math.sin(l.angle) * l.len
+          );
+          ctx.stroke();
+          ctx.restore();
+
+          l.x += Math.cos(l.angle) * l.speed;
+          l.y += Math.sin(l.angle) * l.speed;
+          if (l.x < -l.len || l.x > w + l.len || l.y < -l.len || l.y > h + l.len) {
+            l.x = Math.random() * w;
+            l.y = Math.random() * h;
+            l.angle = Math.random() * Math.PI * 2;
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+
+      // Search engine logic
+      const searchUrls = {
+        google: 'https://www.google.com/search?q=',
+        bing: 'https://www.bing.com/search?q=',
+        duckduckgo: 'https://duckduckgo.com/?q=',
+        yahoo: 'https://search.yahoo.com/search?p=',
+        youtube: 'https://www.youtube.com/results?search_query='
+      };
+      document.getElementById('searchForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const engine = document.getElementById('engine').value;
+        const query = encodeURIComponent(document.getElementById('query').value);
+        window.open(searchUrls[engine] + query, '_blank');
+      });
+    </script>
+  </body>
+</html>
